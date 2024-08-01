@@ -1,0 +1,40 @@
+Relazione sulla Comunicazione tra Dispositivi in Reti Diverse
+
+Introduzione
+Abbiamo due reti diverse e vogliamo far comunicare dei dispositivi che si trovano su queste reti. La rete 1 ha indirizzi IP che iniziano con 192.168.100, mentre la rete 2 usa 192.168.200. Per farli parlare tra loro, usiamo un router che collega le due reti.
+
+Configurazione della Rete
+Rete 1:
+
+Laptop-PT0: IP 192.168.100.100
+Gateway: 192.168.100.1 (questo è il router)
+Switch 1: Collega i dispositivi della rete 1 e il router
+Rete 2:
+
+Laptop-PT2: IP 192.168.200.100
+Gateway: 192.168.200.1 (ancora il router)
+Switch 2: Collega i dispositivi della rete 2 e il router
+Router:
+
+Interfaccia per la rete 1: IP 192.168.100.1
+Interfaccia per la rete 2: IP 192.168.200.1
+Come Funziona il Passaggio dei Pacchetti
+Invio del Pacchetto da Laptop-PT0:
+
+Quando Laptop-PT0 vuole parlare con Laptop-PT2, vede che l'IP di destinazione è fuori dalla sua rete. Quindi, invia il pacchetto al router, che è il gateway predefinito.
+Attraverso Switch 1:
+
+Il pacchetto passa per lo switch della rete 1 e arriva al router.
+Il Router fa il suo lavoro:
+
+Il router riceve il pacchetto, capisce che deve mandarlo alla rete 2, e lo fa passare per l'interfaccia corretta.
+Attraverso Switch 2:
+
+Il pacchetto arriva allo switch della rete 2 e viene inoltrato a Laptop-PT2.
+Arrivo a destinazione:
+
+Laptop-PT2 riceve il pacchetto e può finalmente leggerlo.
+
+Conclusione
+In sintesi, il router è come un postino super efficiente che sa esattamente dove mandare i pacchetti tra due quartieri (le nostre due reti). Gli switch invece sono come i poliziotti che si occupano di far passare i pacchetti all'interno del loro "quartiere". Finché tutto è configurato bene (IP, gateway, ecc.), la comunicazione avviene.
+
