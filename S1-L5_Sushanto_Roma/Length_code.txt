@@ -1,3 +1,19 @@
+Un linguaggio di programmazione esoterico è un tipo di linguaggio di programmazione creato per essere deliberatamente complesso e poco chiaro. Questi linguaggi non hanno applicazioni pratiche nel mondo reale, ma sono usati per sperimentare i limiti della programmazione, come prove di concetto o per divertimento.
+
+Storia
+Il primo linguaggio esoterico è stato INTERCAL, sviluppato nel 1972, seguito da altri come FALSE, Brainfuck, e Befunge. Questi linguaggi si distinguono per caratteristiche uniche come sintassi minimale o strutture non convenzionali.
+
+Caratteristiche e Termini
+Turing Tarpit: linguaggi con pochi comandi ma Turing-completi.
+Stateful encoding: metodo di programmazione dove le istruzioni sono scelte e eseguite da un elenco.
+Funge: programmi con istruzioni disposte in una struttura bidimensionale.
+Non determinismo: esecuzione delle istruzioni non garantita con certezza.
+Esempi
+Alcuni esempi includono LOLCODE, Chef, Cow, FALSE, Shakespeare, e Malbolge, ciascuno con caratteristiche distintive come sintassi basate su altre forme di comunicazione o modelli di dati insoliti.
+
+Questi linguaggi, sebbene non pratici, offrono uno spunto per comprendere meglio i principi della programmazione e la natura dei linguaggi di programmazione stessi.
+
+
 LENGTH:
 
 https://esolangs.org/wiki/Length
