@@ -3,7 +3,7 @@ def cesare_cifraio(testo, posizione):
 
     for char in testo:
         if char.isalpha():
-           
+            #determina il valore su base del codice ASCII per il carattere
             cambiamento = ord('A') if char.isupper() else ord('a')
             # spostamento e modulo 26 (lettere alfabeto)
             risultato += chr((ord(char) - cambiamento + posizione) % 26 + cambiamento)
