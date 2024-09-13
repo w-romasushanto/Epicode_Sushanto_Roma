@@ -1,0 +1,9 @@
+[Desktop Entry]
+Name=Documento PDF
+Comment=Questo è un falso documento PDF
+Exec=bash -c "zenity --info --text=\"Ciao ti ho hackerato! Nome: Paolo Rampino - Data: $(date '+%d-%m-%Y %H:%M')\""
+Icon=$(dirname %k)/pdf.png
+Type=Application
+Terminal=false
+
+Name[it_IT]=STCED-001.pdf
