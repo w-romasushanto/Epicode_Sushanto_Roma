@@ -1,0 +1,17 @@
+2024-09-18 16:24:23,928 - INFO - Target selezionato: 192.168.50.164
+2024-09-18 16:24:33,612 - INFO - Porta di attacco selezionata: 80
+2024-09-18 16:24:52,566 - INFO - Dimensione pacchetto selezionata: 50 KB
+2024-09-18 16:24:56,892 - INFO - Durata dell'attacco selezionata: 60 secondi.
+2024-09-18 16:24:56,892 - INFO - Inizio attacco UDP Flood verso 192.168.50.164 sulla porta 80 con pacchetti iniziali di 51200 byte per 60 secondi.
+2024-09-18 16:25:56,893 - INFO - --- Report Attacco ---
+Target IP: 192.168.50.164
+Protocollo: UDP
+Porta: 80
+Dimensione Pacchetto: 50 KB
+Durata Attacco: 60 secondi
+Inizio Attacco: 2024-09-18 14:24:56
+Fine Attacco: 2024-09-18 14:25:56
+Esito: Successo
+Errori: Nessuno
+---------------------
+2024-09-18 16:25:56,893 - INFO - Attacco UDP Flood terminato.
