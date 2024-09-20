@@ -1,0 +1,56 @@
+# Nmap 7.94SVN scan initiated Fri Sep 20 13:10:02 2024 as: nmap -A -p- --script all -oN /home/sushanto/Scaricati/report-2024-09-20_13-09-59-192.168.50.101.txt -T4 192.168.50.101
+Pre-scan script results:
+| broadcast-listener: 
+|   ether
+|       ARP Request
+|         sender ip     sender mac         target ip
+|         192.168.50.1  08:00:27:6b:38:79  192.168.50.170
+|   udp
+|       DHCP
+|         srv ip        cli ip          mask           gw            dns           vendor
+|         192.168.50.1  192.168.50.171  255.255.255.0  192.168.50.1  192.168.50.1  -
+|_        192.168.50.1  192.168.50.170  255.255.255.0  192.168.50.1  192.168.50.1  -
+| targets-ipv6-multicast-slaac: 
+|   IP: fe80::a00:27ff:fe4f:563e  MAC: 08:00:27:4f:56:3e  IFACE: eth1
+|_  Use --script-args=newtargets to add the results as targets
+| targets-ipv6-multicast-invalid-dst: 
+|   IP: fe80::a00:27ff:fe4f:563e  MAC: 08:00:27:4f:56:3e  IFACE: eth1
+|_  Use --script-args=newtargets to add the results as targets
+| ipv6-multicast-mld-list: 
+|   fe80::a00:27ff:fe4f:563e: 
+|     device: eth1
+|     mac: 08:00:27:4f:56:3e
+|     multicast_ips: 
+|_      ff02::1:ff4f:563e         (NDP Solicited-node)
+| targets-ipv6-multicast-echo: 
+|   IP: fe80::a00:27ff:fe4f:563e  MAC: 08:00:27:4f:56:3e  IFACE: eth1
+|   IP: fe80::a00:27ff:fe6b:3879  MAC: 08:00:27:6b:38:79  IFACE: eth1
+|_  Use --script-args=newtargets to add the results as targets
+| targets-ipv6-multicast-mld: 
+|   IP: fe80::a00:27ff:fe4f:563e  MAC: 08:00:27:4f:56:3e  IFACE: eth1
+| 
+|_  Use --script-args=newtargets to add the results as targets
+| broadcast-netbios-master-browser: 
+|_ip  server  domain
+|_eap-info: please specify an interface with -e
+| broadcast-dhcp-discover: 
+|   Response 1 of 2: 
+|     Interface: eth0
+|     IP Offered: 10.0.2.15
+|     Subnet Mask: 255.255.255.0
+|     Router: 10.0.2.2
+|     Domain Name Server: 103.86.96.100, 103.86.99.100, 192.168.178.1
+|     Domain Name: fritz.box
+|     Server Identifier: 10.0.2.2
+|   Response 2 of 2: 
+|     Interface: eth1
+|     IP Offered: 192.168.50.170
+|     Server Identifier: 192.168.50.1
+|     Subnet Mask: 255.255.255.0
+|     Router: 192.168.50.1
+|     Domain Name Server: 192.168.50.1
+|_    Domain Name: home.arpa
+| targets-asn: 
+|_  targets-asn.asn is a mandatory parameter
+|_http-robtex-shared-ns: *TEMPORARILY DISABLED* due to changes in Robtex's API. See https://www.robtex.com/api/
+|_hostmap-robtex: *TEMPORARILY DISABLED* due to changes in Robtex's API. See https://www.robtex.com/api/
