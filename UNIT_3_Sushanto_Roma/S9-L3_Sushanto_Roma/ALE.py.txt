@@ -1,0 +1,134 @@
+from fpdf import FPDF
+
+# Classe per calcolare la perdita annuale (ALE)
+class RiskCalculator:
+    def __init__(self):
+        self.assets = {}
+        self.exposure_factors = {}
+        self.aro = {}
+
+    def add_asset(self, asset_name, value):
+        """Aggiungi o aggiorna un asset con il suo valore"""
+        self.assets[asset_name] = value
+
+    def add_event(self, event_name, aro):
+        """Aggiungi o aggiorna un evento con il suo ARO"""
+        self.aro[event_name] = aro
+
+    def add_exposure_factor(self, event_name, asset_name, exposure_factor):
+        """Aggiungi o aggiorna un exposure factor per un evento e un asset specifico"""
+        if event_name not in self.exposure_factors:
+            self.exposure_factors[event_name] = {}
+        self.exposure_factors[event_name][asset_name] = exposure_factor
+
+    def calculate_ale(self, asset_name, event_name):
+        """Calcola la perdita annuale (ALE) per un asset e un evento specifico"""
+        if asset_name not in self.assets:
+            raise ValueError(f"Asset '{asset_name}' non trovato.")
+        if event_name not in self.exposure_factors or asset_name not in self.exposure_factors[event_name]:
+            raise ValueError(f"Exposure factor per '{asset_name}' e evento '{event_name}' non trovato.")
+        if event_name not in self.aro:
+            raise ValueError(f"ARO per evento '{event_name}' non trovato.")
+        
+        value = self.assets[asset_name]
+        exposure_factor = self.exposure_factors[event_name][asset_name] / 100  # Converti in decimale
+        aro_value = self.aro[event_name]
+        return (value * exposure_factor) / aro_value
+
+    def calculate_all_ale(self):
+        """Calcola tutte le ALE per ogni combinazione di asset ed eventi e raggruppa per asset"""
+        results = {}
+        for asset_name in self.assets:
+            total_ale = 0
+            events_ale = []
+            for event_name in self.exposure_factors:
+                if asset_name in self.exposure_factors[event_name]:
+                    ale = self.calculate_ale(asset_name, event_name)
+                    total_ale += ale
+                    events_ale.append({
+                        "Evento": event_name,
+                        "ALE": ale
+                    })
+            results[asset_name] = {
+                "Totale ALE": total_ale,
+                "Eventi": events_ale
+            }
+        return results
+
+    def generate_report(self, results, output_format="txt"):
+        """Genera un report riassuntivo in PDF o TXT"""
+        if output_format == "pdf":
+            self.generate_pdf_report(results)
+        elif output_format == "txt":
+            self.generate_txt_report(results)
+
+    def generate_txt_report(self, results):
+        """Genera un file di testo riassuntivo"""
+        with open("report_ale.txt", "w") as f:
+            for asset_name, data in results.items():
+                f.write(f"{asset_name} - Totale: {data['Totale ALE']:.2f}€\n")
+                for event in data["Eventi"]:
+                    f.write(f"  {event['Evento']}: {event['ALE']:.2f}€\n")
+                f.write("\n")  # Spazio aggiuntivo tra gli asset
+        print("Report generato come 'report_ale.txt'.")
+
+    def generate_pdf_report(self, results):
+        """Genera un file PDF riassuntivo"""
+        pdf = FPDF()
+        pdf.add_page()
+        pdf.set_font("Arial", size=12)
+        
+        for asset_name, data in results.items():
+            pdf.cell(200, 10, txt=f"{asset_name} - Totale: {data['Totale ALE']:.2f}€", ln=True)
+            for event in data["Eventi"]:
+                pdf.cell(200, 10, txt=f"  {event['Evento']}: {event['ALE']:.2f}€", ln=True)
+            pdf.cell(200, 10, ln=True)  # Spazio aggiuntivo tra gli asset
+        
+        pdf.output("report_ale.pdf")
+        print("Report generato come 'report_ale.pdf'.")
+
+
+# Funzione per inserimento dei dati da parte dell'utente
+def user_input_risk_calculator():
+    calculator = RiskCalculator()
+    
+    # Inserimento asset e valori
+    num_assets = int(input("Quanti asset vuoi inserire? "))
+    for i in range(1, num_assets + 1):
+        asset_name = input(f"Inserisci il nome del {i}° asset: ")
+        asset_value = float(input(f"Inserisci il valore dell'asset '{asset_name}' (€): "))
+        calculator.add_asset(asset_name, asset_value)
+    
+    # Inserimento eventi e ARO (con numero di eventi)
+    num_events = int(input("Quanti eventi vuoi inserire? "))
+    for i in range(1, num_events + 1):
+        event_name = input(f"Inserisci il nome del {i}° evento (es: Terremoto, Incendio, etc.): ")
+        total_years = int(input(f"Inserisci il periodo totale in anni per l'evento '{event_name}': "))
+        num_occurrences = int(input(f"Inserisci il numero di eventi previsti in questo periodo: "))
+        aro_value = total_years / num_occurrences  # Calcolo dell'ARO
+        calculator.add_event(event_name, aro_value)
+    
+    # Inserimento exposure factors per asset e per ogni evento
+    for asset_name in calculator.assets:
+        print(f"\nInserisci gli exposure factor per l'asset '{asset_name}':")
+        for event_name in calculator.aro:
+            exposure_factor = float(input(f"Inserisci l'exposure factor (%) per l'evento '{event_name}' sull'asset '{asset_name}': "))
+            calculator.add_exposure_factor(event_name, asset_name, exposure_factor)
+    
+    # Calcolo delle perdite annuali
+    results = calculator.calculate_all_ale()
+
+    # Chiedere se stampare il report
+    print_report = input("Vuoi generare il report? (si/no): ").lower()
+    
+    if print_report == "si":
+        # Chiedere il formato del report
+        output_format = input("Vuoi il report in formato PDF o TXT? (pdf/txt): ").lower()
+        # Genera il report
+        calculator.generate_report(results, output_format=output_format)
+    else:
+        print("Non è stato generato alcun report.")
+
+
+# Chiamata alla funzione per iniziare l'inserimento dati
+user_input_risk_calculator()
